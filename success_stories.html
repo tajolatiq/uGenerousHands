@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <title>GenerousHands</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>GenerousHands</h1>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="btnnav">Home</a></li>
+                    <li><a href="about.html" class="btnnav">About Us</a></li>
+                    <li><a href="donations.html" class="btnnav">Donations</a></li>
+                    <li><a href="requests.html" class="btnnav">Requests</a></li>
+                    <li><a href="volunteer.html" class="btnnav">Volunteer</a></li>
+                    <li><a href="success_stories.html" class="btnnav">Success Stories</a></li>
+                    <li><a href="faq.html" class="btnnav">FAQ</a></li>
+                    <li><a href="contact.html" class="btnnav">Contact Us</a></li>
+                    <li><a href="login.html" class="btnnav">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+       <section class="tellus">
+            <h2>Tell Us Your Story</h2>
+            <form id="StoryForm">
+                <label for="Your_Name">Name:</label>
+                <input type="text" id="Your_story" name="Your_story" required>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+		<hr>
+		<br>
+		<section class="tellustable">
+			<h2>Your Story</h2>
+            <div id="StoryContainer">
+				<table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="StoryTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+<br><br>
+    <footer>
+        <p>&copy; 2024 GenerousHands. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var StoryTableBody = document.getElementById('StoryTableBody');
+            var StoryStories = JSON.parse(localStorage.getItem('Stories')) || [];
+            var adminPassword = 'tajol'; // Change this to your desired admin password
+
+            // Function to display Stories
+            function displayStories() {
+                StoryTableBody.innerHTML = ''; // Clear previous Stories
+                StoryStories.forEach(function(Story, index) {
+                    var row = StoryTableBody.insertRow();
+                    row.insertCell().textContent = Story.Your_story;
+                    row.insertCell().textContent = Story.description;
+
+                    // Create delete button
+                    var deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.addEventListener('click', function() {
+                        var enteredPassword = prompt('Enter Admin Password:');
+                        if (enteredPassword === adminPassword) {
+                            // Remove the Story entry from Stories array
+                            StoryStories.splice(index, 1);
+                            // Update local storage
+                            localStorage.setItem('Stories', JSON.stringify(StoryStories));
+                            // Redisplay Stories
+                            displayStories();
+                        } else {
+                            alert('Incorrect password. Deletion canceled.');
+                        }
+                    });
+
+                    row.insertCell().appendChild(deleteButton);
+                });
+            }
+
+            // Initial display of Stories
+            displayStories();
+
+            // Form submission event listener
+            document.getElementById('StoryForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission behavior
+
+                // Get form input values
+                var Your_story = document.getElementById('Your_story').value;
+                var description = document.getElementById('description').value;
+
+                // Create a new story object
+                var newStory = {
+                    Your_story: Your_story,
+                    description: description
+                };
+
+                // Add the new story to the stories array
+                StoryStories.push(newStory);
+
+                // Store the updated stories array in local storage
+                localStorage.setItem('Stories', JSON.stringify(StoryStories));
+
+                // Display the updated stories
+                displayStories();
+
+                // Reset the form
+                document.getElementById('StoryForm').reset();
+            });
+        });
+    </script>
+</body>
+</html>

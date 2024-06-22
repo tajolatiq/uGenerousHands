@@ -1,0 +1,409 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(173, 216, 230, 1);
+    background-image: url('Nur Andi Ravsanjani Gusma.jpg');
+    background-size: cover; 
+    background-position: center; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+}
+
+
+
+/* Header Styles */
+header {
+    background-color: #000; 
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    background-image: url('RDNE Stock project.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    margin: 0;
+    padding: 20px 40px;
+    font-size: 6rem; 
+    color: white;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.7), rgba(128, 128, 128, 0.9)); 
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 8vh;
+}
+
+
+
+
+/* Navigation Styles */
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+nav ul li {
+    margin: 0 10px;
+}
+nav ul li a {
+    display: inline-block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    border-radius: 5px;
+}
+nav ul li a:hover {
+    background-color: #ff5733;
+    color: #fff;
+}
+
+.btnnav {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: gray;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.btnnav:hover {
+    background-color: #e04e2f;
+}
+
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    text-align: center;
+}
+
+
+/* Section Styles */
+.about-section, .team-section, .aim-section, .latest-activities, .testimonials, .newsletter, .submitdonation, .donationtable, .submitrequest, .requesttable, .requestforhelp, .submitrequesttable, .tellus, .tellustable, .faq, .contact-info, .login {
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    transition: transform 0.3s ease;
+    color: #333; /* Font color */
+}
+.about-section h2, .team-section h2, .aim-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: gray; 
+	text-decoration: underline;
+
+}
+.about-section p, .aim-section p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+	color: black
+}
+.about-content {
+    max-width: 1000px;
+    margin: 20px auto;
+    text-align: center;
+    width: 100%;
+}
+
+
+
+/* Team Section Styles */
+.team-section .team-members {  
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+.team-section .team-member {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+.team-section .team-member:hover {
+    transform: translateY(-10px);
+}
+.team-member img {
+    width: 200x;
+    height: 150px;
+    border-radius: 20%;
+    margin-bottom: 5px;
+}
+.team-section .team-member h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-top: 10px;
+}
+
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+form label {
+    flex-basis: 100%;
+    text-align: left;
+}
+form input, form textarea, form select, form button {
+    flex-basis: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 16px;
+}
+form button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+form button:hover {
+    background-color: #555;
+}
+
+
+
+
+/* Specific Form Containers */
+#donationForm, #RequestForm, #volunteerForm, #StoryForm {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: left;
+}
+#donationForm input[type="text"], 
+#donationForm input[type="email"], 
+#donationForm input[type="tel"], 
+#donationForm textarea, 
+#donationForm select, 
+#RequestForm input[type="text"], 
+#RequestForm input[type="email"], 
+#RequestForm input[type="tel"], 
+#RequestForm textarea, 
+#RequestForm select, 
+#volunteerForm input[type="text"], 
+#volunteerForm input[type="email"], 
+#volunteerForm input[type="tel"], 
+#volunteerForm textarea, 
+#volunteerForm select, 
+#StoryForm input[type="text"], 
+#StoryForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+#donationForm button[type="submit"], 
+#RequestForm button[type="submit"], 
+#volunteerForm button[type="submit"], 
+#StoryForm button[type="submit"] {
+    width: auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#donationForm button[type="submit"]:hover, 
+#RequestForm button[type="submit"]:hover, 
+#volunteerForm button[type="submit"]:hover, 
+#StoryForm button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+#donationsContainer, #RequestsContainer, #StoryContainer, #volunteerOpportunitiesContainer {
+    text-align: center;
+}
+
+
+
+/* Hero Section Styles */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('Julia M Cameron pexel.jpg') center/cover no-repeat;
+    background-size: cover;
+    background-position: 50% 70%;
+    color: #fff;
+    padding: 100px 20px;
+    text-align: center;
+}
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+}
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff5733;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.btn:hover {
+    background-color: #e04e2f;
+}
+
+
+
+
+/* Highlights Section Styles */
+.highlights {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 40px 0;
+    text-align: center;
+}
+.highlight {
+    background-color: rgba(255, 255, 255, 0.1); 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    flex: 1 1 30%;
+    max-width: 30%;
+    transition: transform 0.3s ease;
+}
+.highlight:hover {
+    transform: translateY(-10px);
+}
+@media (max-width: 768px) {
+    .highlight {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
+
+
+
+/* Newsletter Form Styles */
+.newsletter form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.newsletter input {
+    padding: 10px;
+    font-size: 1rem;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 400px;
+}
+.newsletter button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.newsletter button:hover {
+    background-color: #0056b3;
+}
+
+
+
+/* Table Styles */
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 90%;
+    max-width: 800px;
+}
+th, td {
+    border: 1px solid black;
+    padding: 15px;
+    text-align: left;
+}
+
+
+
+/* Image Styles */
+
+img[src="Furkan Güzlek used sofa.jpg"], img[src="Suzy Hazelwood old book.jpg"] {
+    width: 50%;
+}
+
+
+/* Contact Us */
+
+.contact-info {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.contact-info h3 {
+color: #333;
+margin-bottom: 10px;
+}
+.contact-info p {
+margin: 5px 0;
+}
+.contact-info a {
+color: #007bff;
+text-decoration: none;
+}
+
+
+/* Miscellaneous Styles */
+
+.activity img, .testimonial img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+
+
+/* Footer Styles */
+footer {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-top: auto;
+}
+

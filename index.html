@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <title>GenerousHands</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>GenerousHands</h1>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="btnnav">Home</a></li>
+                    <li><a href="about.html" class="btnnav">About Us</a></li>
+                    <li><a href="donations.html" class="btnnav">Donations</a></li>
+                    <li><a href="requests.html" class="btnnav">Requests</a></li>
+                    <li><a href="volunteer.html" class="btnnav">Volunteer</a></li>
+                    <li><a href="success_stories.html" class="btnnav">Success Stories</a></li>
+                    <li><a href="faq.html" class="btnnav">FAQ</a></li>
+                    <li><a href="contact.html" class="btnnav">Contact Us</a></li>
+                    <li><a href="login.html" class="btnnav">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="hero">
+            <h2>Welcome to GenerousHands</h2>
+            <p>Connecting those who have with those in need. Join us in making a difference in our community.</p>
+            <a href="about.html" class="btn">Learn More</a>
+        </section>
+
+        <section class="highlights">
+            <div class="highlight">
+                <h3>Make a Donation</h3>
+                <p>Your donations can change lives. Whether it's clothes, books, toys, or furniture, every little bit helps.</p>
+                <a href="donations.html" class="btn">Donate Now</a>
+            </div>
+            <div class="highlight">
+                <h3>Request Assistance</h3>
+                <p>If you or someone you know needs assistance, we are here to help. Submit your request today.</p>
+                <a href="requests.html" class="btn">Request Help</a>
+            </div>
+            <div class="highlight">
+                <h3>Volunteer with Us</h3>
+                <p>Join our team of dedicated volunteers and help us make a difference in the community.</p>
+                <a href="volunteer.html" class="btn">Get Involved</a>
+            </div>
+        </section>
+
+        <section class="latest-activities">
+            <h2>Latest Activities</h2>
+            <div class="activity">
+                <img src="Furkan Güzlek used sofa.jpg" alt="Activity 1">
+                <p>Old sofa has a new home</p>
+            </div>
+            <div class="activity">
+                <img src="Suzy Hazelwood old book.jpg" alt="Activity 2">
+                <p>I have collections of old book</p>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2>What People Are Saying</h2>
+            <div class="testimonial">
+                <p>"GenerousHands helped me furnish my apartment after a tough time. I'm so grateful for their support."</p>
+                <cite>- Pakcik Ali.</cite>
+            </div>
+            <div class="testimonial">
+                <p>"The process of donating was simple and I love knowing my old books are now bringing joy to others."</p>
+                <cite>- Ah Chong.</cite>
+            </div>
+            <div class="testimonial">
+                <p>"Volunteering with GenerousHands has been a rewarding experience. It's amazing to see the impact we're making."</p>
+                <cite>- Muthusamy.</cite>
+            </div>
+        </section>
+
+        <section class="newsletter">
+            <h2>Stay Updated</h2>
+            <p>Sign up for our newsletter to stay updated on our latest news, events, and success stories.</p>
+            <form id="newsletterForm">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 GenerousHands. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('newsletterForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var email = document.getElementById('email').value;
+                alert('Thank you for subscribing, ' + email + '!');
+                document.getElementById('newsletterForm').reset();
+            });
+        });
+    </script>
+</body>
+</html>

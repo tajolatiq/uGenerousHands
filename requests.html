@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <title>GenerousHands</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>GenerousHands</h1>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="btnnav">Home</a></li>
+                    <li><a href="about.html" class="btnnav">About Us</a></li>
+                    <li><a href="donations.html" class="btnnav">Donations</a></li>
+                    <li><a href="requests.html" class="btnnav">Requests</a></li>
+                    <li><a href="volunteer.html" class="btnnav">Volunteer</a></li>
+                    <li><a href="success_stories.html" class="btnnav">Success Stories</a></li>
+                    <li><a href="faq.html" class="btnnav">FAQ</a></li>
+                    <li><a href="contact.html" class="btnnav">Contact Us</a></li>
+                    <li><a href="login.html" class="btnnav">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="submitrequest">
+            <h2>Submit a Request</h2>
+            <form id="RequestForm">
+                <label for="item_request">Item request:</label>
+                <input type="text" id="item_request" name="item_request" required>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+                <label for="contact_email">Contact Email:</label>
+                <input type="email" id="contact_email" name="contact_email" required>
+                <label for="phone_number">Phone Number:</label>
+                <input type="tel" id="phone_number" name="phone_number" required>
+                <label for="category">Category:</label>
+                <select id="category" name="category" required>
+                    <option value="furniture">Furniture</option>
+                    <option value="book">Book</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="toy">Toy</option>
+                    <option value="appliances">Appliances</option>
+                    <option value="shoes">Shoes</option>
+                    <option value="art">Art</option>
+                    <option value="other">Other</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+        <br>
+        <hr>
+        <section class="requesttable">
+            <h2>Requests</h2>
+            <label for="categoryFilter">Filter by Category:</label>
+            <select id="categoryFilter">
+                <option value="all">All</option>
+                <option value="furniture">Furniture</option>
+                <option value="book">Book</option>
+                <option value="clothing">Clothing</option>
+                <option value="toy">Toy</option>
+                <option value="appliances">Appliances</option>
+                <option value="shoes">Shoes</option>
+                <option value="art">Art</option>
+                <option value="other">Other</option>
+            </select>
+            <div id="RequestsContainer">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item Request</th>
+                            <th>Description</th>
+                            <th>Contact Email</th>
+                            <th>Phone Number</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="RequestsTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <footer>
+        <p>&copy; 2024 GenerousHands. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var RequestsTableBody = document.getElementById('RequestsTableBody');
+            var Requests = JSON.parse(localStorage.getItem('Requests')) || [];
+            var adminPassword = 'tajol'; // Change this to your desired admin password
+
+            function displayRequests(selectedCategory) {
+                RequestsTableBody.innerHTML = ''; // Clear previous Requests
+                Requests.forEach(function(request, index) {
+                    if (selectedCategory === 'all' || request.category === selectedCategory) {
+                        var row = RequestsTableBody.insertRow();
+                        row.insertCell().textContent = request.item_request;
+                        row.insertCell().textContent = request.description;
+                        row.insertCell().textContent = request.contact_email;
+                        row.insertCell().textContent = request.phone_number;
+                        row.insertCell().textContent = request.category;
+
+                        var deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.addEventListener('click', function() {
+                            var enteredPassword = prompt('Enter Admin Password:');
+                            if (enteredPassword === adminPassword) {
+                                Requests.splice(index, 1);
+                                localStorage.setItem('Requests', JSON.stringify(Requests));
+                                displayRequests(selectedCategory);
+                            } else {
+                                alert('Incorrect password. Deletion canceled.');
+                            }
+                        });
+
+                        row.insertCell().appendChild(deleteButton);
+                    }
+                });
+            }
+
+            displayRequests('all');
+
+            document.getElementById('categoryFilter').addEventListener('change', function(event) {
+                var selectedCategory = event.target.value;
+                displayRequests(selectedCategory);
+            });
+
+            document.getElementById('RequestForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var itemRequest = document.getElementById('item_request').value;
+                var description = document.getElementById('description').value;
+                var contactEmail = document.getElementById('contact_email').value;
+                var phoneNumber = document.getElementById('phone_number').value;
+                var category = document.getElementById('category').value;
+
+                var newRequest = {
+                    item_request: itemRequest,
+                    description: description,
+                    contact_email: contactEmail,
+                    phone_number: phoneNumber,
+                    category: category
+                };
+
+                Requests.push(newRequest);
+                localStorage.setItem('Requests', JSON.stringify(Requests));
+                displayRequests('all');
+                document.getElementById('RequestForm').reset();
+            });
+        });
+    </script>
+</body>
+</html>

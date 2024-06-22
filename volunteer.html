@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <title>GenerousHands</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>GenerousHands</h1>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="btnnav">Home</a></li>
+                    <li><a href="about.html" class="btnnav">About Us</a></li>
+                    <li><a href="donations.html" class="btnnav">Donations</a></li>
+                    <li><a href="requests.html" class="btnnav">Requests</a></li>
+                    <li><a href="volunteer.html" class="btnnav">Volunteer</a></li>
+                    <li><a href="success_stories.html" class="btnnav">Success Stories</a></li>
+                    <li><a href="faq.html" class="btnnav">FAQ</a></li>
+                    <li><a href="contact.html" class="btnnav">Contact Us</a></li>
+                    <li><a href="login.html" class="btnnav">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="requestforhelp">
+            <h2>Request For Help</h2>
+            <form id="volunteerForm">
+                <label for="item_name">Name:</label>
+                <input type="text" id="item_name" name="item_name" required>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+                <label for="contact_email">Contact Email:</label>
+                <input type="email" id="contact_email" name="contact_email" required>
+                <label for="phone_number">Phone Number:</label>
+                <input type="tel" id="phone_number" name="phone_number" required>
+                <label for="location">Location:</label>
+                <select id="location" name="location" required>
+                    <option value="Johor">Johor</option>
+                    <option value="Kedah">Kedah</option>
+                    <option value="Kelantan">Kelantan</option>
+                    <option value="Kuala Lumpur">Kuala Lumpur</option>
+                    <option value="Labuan">Labuan</option>
+                    <option value="Melaka">Melaka</option>
+                    <option value="Negeri Sembilan">Negeri Sembilan</option>
+                    <option value="Pahang">Pahang</option>
+                    <option value="Perak">Perak</option>
+                    <option value="Perlis">Perlis</option>
+                    <option value="Pulau Pinang">Pulau Pinang</option>
+                    <option value="Sabah">Sabah</option>
+                    <option value="Sarawak">Sarawak</option>
+                    <option value="Selangor">Selangor</option>
+                    <option value="Terengganu">Terengganu</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+        <br>
+        <hr>
+        <section class="submitrequesttable">
+            <h2>Requests</h2>
+            <label for="locationFilter">Filter by Location:</label>
+            <select id="locationFilter">
+                <option value="all">All</option>
+                <option value="Johor">Johor</option>
+                <option value="Kedah">Kedah</option>
+                <option value="Kelantan">Kelantan</option>
+                <option value="Kuala Lumpur">Kuala Lumpur</option>
+                <option value="Labuan">Labuan</option>
+                <option value="Melaka">Melaka</option>
+                <option value="Negeri Sembilan">Negeri Sembilan</option>
+                <option value="Pahang">Pahang</option>
+                <option value="Perak">Perak</option>
+                <option value="Perlis">Perlis</option>
+                <option value="Pulau Pinang">Pulau Pinang</option>
+                <option value="Sabah">Sabah</option>
+                <option value="Sarawak">Sarawak</option>
+                <option value="Selangor">Selangor</option>
+                <option value="Terengganu">Terengganu</option>
+            </select>
+            <div id="VolunteersContainer">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Contact Email</th>
+                            <th>Phone Number</th>
+                            <th>Location</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="VolunteersTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <footer>
+        <p>&copy; 2024 GenerousHands. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var VolunteersTableBody = document.getElementById('VolunteersTableBody');
+            var Volunteers = JSON.parse(localStorage.getItem('Volunteers')) || [];
+            var adminPassword = 'tajol'; // Change this to your desired admin password
+
+            function displayVolunteers(selectedLocation) {
+                VolunteersTableBody.innerHTML = ''; // Clear previous Volunteers
+                Volunteers.forEach(function(volunteer, index) {
+                    if (selectedLocation === 'all' || volunteer.location === selectedLocation) {
+                        var row = VolunteersTableBody.insertRow();
+                        row.insertCell().textContent = volunteer.item_name;
+                        row.insertCell().textContent = volunteer.description;
+                        row.insertCell().textContent = volunteer.contact_email;
+                        row.insertCell().textContent = volunteer.phone_number;
+                        row.insertCell().textContent = volunteer.location;
+
+                        var deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.addEventListener('click', function() {
+                            var enteredPassword = prompt('Enter Admin Password:');
+                            if (enteredPassword === adminPassword) {
+                                Volunteers.splice(index, 1);
+                                localStorage.setItem('Volunteers', JSON.stringify(Volunteers));
+                                displayVolunteers(selectedLocation);
+                            } else {
+                                alert('Incorrect password. Deletion canceled.');
+                            }
+                        });
+
+                        row.insertCell().appendChild(deleteButton);
+                    }
+                });
+            }
+
+            displayVolunteers('all');
+
+            document.getElementById('locationFilter').addEventListener('change', function(event) {
+                var selectedLocation = event.target.value;
+                displayVolunteers(selectedLocation);
+            });
+
+            document.getElementById('volunteerForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var itemName = document.getElementById('item_name').value;
+                var description = document.getElementById('description').value;
+                var contactEmail = document.getElementById('contact_email').value;
+                var phoneNumber = document.getElementById('phone_number').value;
+                var location = document.getElementById('location').value;
+
+                var newVolunteer = {
+                    item_name: itemName,
+                    description: description,
+                    contact_email: contactEmail,
+                    phone_number: phoneNumber,
+                    location: location
+                };
+
+                Volunteers.push(newVolunteer);
+                localStorage.setItem('Volunteers', JSON.stringify(Volunteers));
+                displayVolunteers('all');
+                document.getElementById('volunteerForm').reset();
+            });
+        });
+    </script>
+</body>
+</html>

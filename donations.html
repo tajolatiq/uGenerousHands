@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <title>GenerousHands</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>GenerousHands</h1>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="btnnav">Home</a></li>
+                    <li><a href="about.html" class="btnnav">About Us</a></li>
+                    <li><a href="donations.html" class="btnnav">Donations</a></li>
+                    <li><a href="requests.html" class="btnnav">Requests</a></li>
+                    <li><a href="volunteer.html" class="btnnav">Volunteer</a></li>
+                    <li><a href="success_stories.html" class="btnnav">Success Stories</a></li>
+                    <li><a href="faq.html" class="btnnav">FAQ</a></li>
+                    <li><a href="contact.html" class="btnnav">Contact Us</a></li>
+                    <li><a href="login.html" class="btnnav">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="submitdonation">
+            <h2>Submit a Donation</h2>
+            <form id="donationForm">
+                <label for="item_name">Item Name:</label>
+                <input type="text" id="item_name" name="item_name" required>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+                <label for="contact_email">Contact Email:</label>
+                <input type="email" id="contact_email" name="contact_email" required>
+                <label for="phone_number">Phone Number:</label>
+                <input type="tel" id="phone_number" name="phone_number" required>
+                <label for="category">Category:</label>
+                <select id="category" name="category" required>
+                    <option value="furniture">Furniture</option>
+                    <option value="book">Book</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="toy">Toy</option>
+                    <option value="appliances">Appliances</option>
+                    <option value="shoes">Shoes</option>
+                    <option value="art">Art</option>
+                    <option value="other">Other</option>
+                </select>
+                <label for="image">Upload Image:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+		<br>
+        <hr>
+        <section class="donationtable">
+            <h2>Donations</h2>
+          
+            <label for="categoryFilter">Filter by Category:</label>
+            <select id="categoryFilter">
+                <option value="all">All</option>
+                <option value="furniture">Furniture</option>
+                <option value="book">Book</option>
+                <option value="clothing">Clothing</option>
+                <option value="toy">Toy</option>
+                <option value="appliances">Appliances</option>
+                <option value="shoes">Shoes</option>
+                <option value="art">Art</option>
+                <option value="other">Other</option>
+            </select>
+            <div id="donationsContainer">
+               
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Item Name</th>
+                            <th>Description</th>
+                            <th>Contact Email</th>
+                            <th>Phone Number</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="donationsTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+<br>
+<br>
+<br>
+<br>
+
+    <footer>
+        <p>&copy; 2024 GenerousHands. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var donationsTableBody = document.getElementById('donationsTableBody');
+            var donations = JSON.parse(localStorage.getItem('donations')) || [];
+            var adminPassword = 'tajol'; // Change this to your desired admin password
+
+            // Function to display donations based on selected category
+            function displayDonations(selectedCategory) {
+                donationsTableBody.innerHTML = ''; // Clear previous donations
+                donations.forEach(function(donation, index) {
+                    if (selectedCategory === 'all' || donation.category === selectedCategory) {
+                        var row = donationsTableBody.insertRow();
+                        var cellImage = row.insertCell();
+                        var cellItemName = row.insertCell();
+                        var cellDescription = row.insertCell();
+                        var cellContactEmail = row.insertCell();
+                        var cellPhoneNumber = row.insertCell();
+                        var cellCategory = row.insertCell();
+
+                        // Display image
+                        var image = document.createElement('img');
+                        image.src = donation.image;
+                        image.alt = donation.item_name + ' image';
+                        image.style.width = '100px'; // Adjust image size as needed
+                        cellImage.appendChild(image);
+
+                        cellItemName.textContent = donation.item_name;
+                        cellDescription.textContent = donation.description;
+                        cellContactEmail.textContent = donation.contact_email;
+                        cellPhoneNumber.textContent = donation.phone_number;
+                        cellCategory.textContent = donation.category;
+
+                        // Create delete button
+                        var deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.addEventListener('click', function() {
+                            var enteredPassword = prompt('Enter Admin Password:');
+                            if (enteredPassword === adminPassword) {
+                                // Remove the donation entry from donations array
+                                donations.splice(index, 1);
+                                // Update local storage
+                                localStorage.setItem('donations', JSON.stringify(donations));
+                                // Redisplay donations
+                                displayDonations(selectedCategory);
+                            } else {
+                                alert('Incorrect password. Deletion canceled.');
+                            }
+                        });
+
+                        row.insertCell().appendChild(deleteButton);
+                    }
+                });
+            }
+
+            // Initial display of all donations
+            displayDonations('all');
+
+            // Event listener for category filter change
+            document.getElementById('categoryFilter').addEventListener('change', function(event) {
+                var selectedCategory = event.target.value;
+                displayDonations(selectedCategory);
+            });
+
+            // Event listener for form submission
+            document.getElementById('donationForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+                var item_name = document.getElementById('item_name').value;
+                var description = document.getElementById('description').value;
+                var contact_email = document.getElementById('contact_email').value;
+                var phone_number = document.getElementById('phone_number').value;
+                var category = document.getElementById('category').value;
+                var image = URL.createObjectURL(document.getElementById('image').files[0]); // Get the uploaded image
+
+                // Add new donation to the donations array
+                var newDonation = {
+                    item_name: item_name,
+                    description: description,
+                    contact_email: contact_email,
+                    phone_number: phone_number,
+                    category: category,
+                    image: image // Store the image URL
+                };
+                donations.push(newDonation);
+
+                // Update local storage
+                localStorage.setItem('donations', JSON.stringify(donations));
+
+                // Display donations with the selected category
+                displayDonations(category);
+
+                // Clear form fields
+                document.getElementById('donationForm').reset();
+            });
+        });
+    </script>
+</body>
+</html>
